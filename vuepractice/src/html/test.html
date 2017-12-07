@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+  <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+</head>
+
+<body>
+  <div id="staggerd-list-demo">
+    <input v-model="query">
+    <transition-group name="staggered-fade" tag="ul" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave">
+      <li v-for="(item, index) in computedList" v-bind:ket="item.msg" v-bind:data-index="index">
+        {{ item.msg }}
+      </li>
+    </transition-group>
+  </div>
+</body>
+<script>
+/*自定义过渡动画 ---函数组件 */
+Vue.component('my-special-transition', {
+  functional: true,
+  render: function(createElement, context) {
+    var data = {
+      props: {
+        name: 'very-special-transition',
+        mode: 'out-in'
+      },
+      on: {
+        beforeEnter: function(el) {
+          // ...
+        },
+        afterEnter: function(el) {
+          // ...
+        }
+      }
+    }
+    return createElement('transition', data, context.children)
+  }
+})
+
+</script>
+<style>
+.list-complete-item {
+  transition: transform 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.list-complete-enter,
+.list-complete-leave-to
+/* .list-complete-leave-active for below version 2.1.8 */
+
+{
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.list-complete-leave-active {
+  position: absolute;
+}
+
+</style>
+
+</html>
