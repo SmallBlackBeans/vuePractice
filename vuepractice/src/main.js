@@ -24,6 +24,8 @@ new Vue({
   el: '#app',
   router: router,
   // template: "<App/>",等价于
-  render: h => h(App),
+  render: h => {
+    return h(App)
+  },
   components: { App }
 })

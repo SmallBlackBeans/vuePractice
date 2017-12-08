@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ES6 演示</title>
+</head>
+
+<body>
+
+
+  <div></div>
+
+
+
+
+</body>
+
+<script>
+  function sum(x, y, z) {
+    let total = 0;
+    if (x) total += x;
+    if (y) total += y;
+    if (z) total += z;
+    console.log(`total：${total}`)
+  }
+
+  //rest参数，动态
+  function sum(...m) {
+    let total = 0;
+    for (var i of m) {
+      total += i
+    }
+  }
+  sum(5, "", 9)
+
+  let sum2 = (...m) => {
+    let total = 0;
+    for (var i of m) {
+      total += i
+    }
+  }
+  sum2(1, 2, 3, 4)
+
+
+  //数组的扩展 分解输出
+  console.log(...[4, 6, 8])
+  let arr1 = [1, 2, 4, 5];
+  let arr2 = [6, 7, 8];
+  [...arr1, ...arr2];
+
+</script>
+
+
+</html>

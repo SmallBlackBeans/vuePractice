@@ -5,7 +5,8 @@
         <h1 style="line-height: 36px; color: #20A0FF">豆瓣电影排行榜</h1>
       </div>
       <div v-for="item in items" :key="item.title" class="text item">
-        {{item.title}}
+        <router-link to="/detail"> {{item.title}}</router-link>
+        <button @click="jump(item.title)">go</button>
       </div>
     </el-card>
   </div>
@@ -36,7 +37,11 @@ export default {
         console.log(error)
       })
   },
-  methods: {}
+  methods: {
+    jump(title) {
+      this.$router.push('/detail?title=' + title)
+    }
+  }
 }
 </script>
 
