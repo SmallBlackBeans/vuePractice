@@ -11,6 +11,7 @@ var index = require('./routes/index')
 var users = require('./routes/users')
 
 var app = express()
+//数据库使用MongoDB
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
