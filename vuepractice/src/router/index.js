@@ -1,14 +1,15 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import HelloWorld from '@/components/HelloWorld'
-import Index from '@/components/index'
-import Header from '@/components/header'
+import Transitionanimation from '@/components/transitionAnimation';
+import Index from '@/components/index';
+import Header from '@/components/header';
 
-import Transitionanimation from '@/components/transitionAnimation'
-import Detail from '@/views/Detail'
+import GoodsList from '@/views/GoodsList';
+import HelloWorld from '@/views/HelloWorld';
+import Detail from '@/views/Detail';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history', //不在使用hash 路由，就是不再使用#
@@ -33,9 +34,14 @@ export default new Router({
       component: Transitionanimation
     },
     {
+      path: '/goods',
+      name: 'GoodsList',
+      component: GoodsList
+    },
+    {
       path: '/detail',
       name: 'detail',
       component: Detail
     }
   ]
-})
+});
