@@ -5,7 +5,9 @@ var productSchema = new Schema({
   productId: { type: String },
   productName: String,
   salePrice: Number,
-  productImage: String
+  productImage: String,
+  checked: String,
+  productNum: Number
 });
 
 //匿名输出

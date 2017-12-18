@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Goods = require('../models/goods');
+var User = require('../models/user');
 
 // 链接数据库
 mongoose.connect('mongodb://127.0.0.1:27017/db_demo', {
@@ -48,6 +49,51 @@ router.get('/', function(req, res, next) {
           list: doc
         }
       });
+    }
+  });
+});
+
+// 加入购物车
+router.post('/addCart', function(req, res, next) {
+  var userId = '123456',
+    productId = req.body.productId;
+  User.findOne({ userId: userId }, function(err, userDoc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: err.message
+      });
+    } else {
+      console.log('userDoc:' + userDoc);
+      if (userDoc) {
+        Goods.findOne({ productId: productId }, function(err, goodDoc) {
+          if (err) {
+            res.json({
+              status: '1',
+              msg: err.message
+            });
+          } else {
+            if (goodDoc) {
+              goodDoc.productNum = 1;
+              goodDoc.checkd = 1;
+              userDoc.cartList.push(goodDoc);
+              userDoc.save(function(error, doc2) {
+                if (error) {
+                  res.json({
+                    status: '1',
+                    msg: err.message
+                  });
+                } else {
+                  res.json({
+                    status: 0,
+                    msg: '添加成功'
+                  });
+                }
+              });
+            }
+          }
+        });
+      }
     }
   });
 });
