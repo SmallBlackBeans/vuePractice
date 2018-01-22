@@ -66,33 +66,56 @@ router.post('/addCart', function(req, res, next) {
     } else {
       console.log('userDoc:' + userDoc);
       if (userDoc) {
-        Goods.findOne({ productId: productId }, function(err, goodDoc) {
-          if (err) {
-            res.json({
-              status: '1',
-              msg: err.message
-            });
-          } else {
-            if (goodDoc) {
-              goodDoc.productNum = 1;
-              goodDoc.checkd = 1;
-              userDoc.cartList.push(goodDoc);
-              userDoc.save(function(error, doc2) {
-                if (error) {
-                  res.json({
-                    status: '1',
-                    msg: err.message
-                  });
-                } else {
-                  res.json({
-                    status: 0,
-                    msg: '添加成功'
-                  });
-                }
-              });
-            }
+        let goodsItem = '';
+        userDoc.cartList.forEach(item => {
+          if (item.productId == productId) {
+            goodsItem = item;
+            item.productNum++;
           }
         });
+        if (goodsItem) {
+          userDoc.save(function(error, goodsItem) {
+            if (error) {
+              res.json({
+                status: '1',
+                msg: err.message
+              });
+            } else {
+              res.json({
+                status: 0,
+                msg: '添加成功'
+              });
+            }
+          });
+        } else {
+          Goods.findOne({ productId: productId }, function(err, goodDoc) {
+            if (err) {
+              res.json({
+                status: '1',
+                msg: err.message
+              });
+            } else {
+              if (goodDoc) {
+                goodDoc.productNum = 1;
+                goodDoc.checkd = 1;
+                userDoc.cartList.push(goodDoc);
+                userDoc.save(function(error, doc2) {
+                  if (error) {
+                    res.json({
+                      status: '1',
+                      msg: err.message
+                    });
+                  } else {
+                    res.json({
+                      status: 0,
+                      msg: '添加成功'
+                    });
+                  }
+                });
+              }
+            }
+          });
+        }
       }
     }
   });
